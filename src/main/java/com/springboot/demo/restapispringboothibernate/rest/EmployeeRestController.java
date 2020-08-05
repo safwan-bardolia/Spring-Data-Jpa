@@ -71,7 +71,7 @@ public class EmployeeRestController {
 	public Employee updateEmployee(@RequestBody Employee employee) {
 		
 		//first fetch the record from DB (if data not found then it throws an exception)
-	    employeeService.getSingleEmployee(employee.getId());							// without this, if we directly save the record & if record is not found in DB then 
+	        employeeService.getSingleEmployee(employee.getId());							// without this, if we directly save the record & if record is not found in DB then 
 																						// it will add new record in this case also (i.e for PUT)	
 		//then save it to the DB
 		employeeService.saveEmployee(employee);											// delegate call to service layer
@@ -86,14 +86,18 @@ public class EmployeeRestController {
 	@DeleteMapping("/employees/{employeeId}")
 	public String deleteEmployee(@PathVariable int employeeId) {
 		
-		// first check employee exist?
-		Employee employee = employeeService.getSingleEmployee(employeeId);				// delegate call to service layer
+// 		// first check employee exist?
+// 		Employee employee = employeeService.getSingleEmployee(employeeId);				// delegate call to service layer
 		
-		// throw exception if not exist
-		if(employee==null) {
-			throw new EmployeeNotFoundException("employee id not found - "+employeeId);
-		}
-		
+// 		// throw exception if not exist
+// 		if(employee==null) {
+// 			throw new EmployeeNotFoundException("employee id not found - "+employeeId);
+// 		}
+
+		//first fetch the record from DB (if data not found then it throws an exception)
+	        employeeService.getSingleEmployee(employee.getId());							
+																						
+		//then delete from DB		
 		employeeService.delete(employeeId);												// delegate call to service layer
 		
 		// return response
